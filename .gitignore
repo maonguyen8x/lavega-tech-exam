@@ -1,0 +1,47 @@
+# Environment secrets (never commit real credentials)
+.env
+.env.local
+.env.production
+
+# Generated environment file with real credentials (from .env)
+src/environments/environment.local.ts
+
+# npm lock (we use yarn)
+package-lock.json
+
+# Angular build artifacts
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# Node modules
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Yarn Berry (PnP artifacts)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Angular cache
+.angular/
+
+# Testing
+/coverage/
+
+# OS
+.DS_Store
+Thumbs.db
