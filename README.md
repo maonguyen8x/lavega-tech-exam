@@ -22,6 +22,17 @@ A modern Angular application demonstrating **Google Single Sign-On** using the O
 ---
 
 ## Overview
+Login:
+![Login](/src/images/Login.png)
+
+Profile:
+![Profile](/src/images/Profile.png)
+
+Edit Profile:
+![Edit_Profile](/src/images/Edit-Profile.png)
+
+Logout:
+![Logout](/src/images/Logout.png)
 
 This application implements a complete Google SSO flow:
 
@@ -121,7 +132,7 @@ yarn --version        # should show 4.x
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/maonguyen8x/lavega-tech-exam
 cd lavega-tech-exam
 ```
 
