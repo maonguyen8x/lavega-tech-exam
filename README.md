@@ -34,6 +34,12 @@ Edit Profile:
 Logout:
 ![Logout](/src/images/Logout.png)
 
+Dark mode:
+![Dark_mode](/src/images/Dark_Mode.png)
+
+Light mode:
+![Light_mode](/src/images/Light_Mode.png)
+
 This application implements a complete Google SSO flow:
 
 1. **Login Screen** — "Sign in with Google" button with loading/error states
