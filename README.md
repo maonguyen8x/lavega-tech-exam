@@ -89,7 +89,8 @@ src/
 │   ├── app.component.ts                 — Root component
 │   └── app.routes.ts                    — Route configuration
 ├── environments/
-│   └── environment.ts                   — Generated from .env by scripts/generate-env.js
+│   ├── environment.ts                   — Committed template (empty values, safe for Git)
+│   └── environment.local.ts             — Generated from .env (git-ignored, real credentials)
 ├── main.ts                              — Bootstrap
 ├── index.html
 └── styles.css                           — Global styles + CSS custom properties for theming
@@ -168,20 +169,26 @@ GOOGLE_CLIENT_SECRET=your-client-secret
 GOOGLE_REDIRECT_URI=http://localhost:4200/callback
 ```
 
-The file `src/environments/environment.ts` is **auto-generated** from `.env` each time you run `npm start` or `npm run build`. You can also regenerate it manually:
+Running `npm start` (or `npm run build`) automatically generates `src/environments/environment.local.ts` from your `.env` file. Angular's `fileReplacements` in `angular.json` swaps this in place of the committed template at build time.
+
+You can also regenerate manually:
 
 ```bash
 npm run env:generate
 ```
 
-> **Note:** The `.env` file is git-ignored and never committed. The `.env.example` file contains placeholder values and is safe to commit.
+> **How it works:**
+> - `environment.ts` — committed to Git with **empty values** (safe, no secrets)
+> - `environment.local.ts` — generated from `.env` at build time (**git-ignored**, contains real credentials)
+> - Angular `fileReplacements` swaps the template → local file during build/serve
+> - `.env` is git-ignored and never committed
 
-### Step 3 — Verify environment.ts
+### Step 3 — Verify the generated file
 
-After running the generate script, check that `src/environments/environment.ts` contains your credentials:
+After running the generate script, check that `environment.local.ts` was created:
 
 ```bash
-cat src/environments/environment.ts
+cat src/environments/environment.local.ts
 ```
 
 ---
@@ -283,13 +290,15 @@ A 32-character random `state` string is generated before each login, stored in s
 
 ### Sensitive values
 
-- `.env` contains credentials and is **git-ignored** — never committed to version control.
-- `environment.ts` is generated from `.env` at build time. The committed version uses placeholder values from `.env.example`.
+- `.env` contains credentials and is **git-ignored** — never committed.
+- `environment.ts` is committed with **empty values** (safe template).
+- `environment.local.ts` is generated from `.env` at build time and is **git-ignored** (contains real credentials).
+- Angular `fileReplacements` swaps the template with the local file during build/serve.
 - No tokens, authorization codes, or secrets are ever logged to the console.
 
 ### Google OAuth note
 
-Google's token endpoint for **Web Application** client types requires `client_secret` in the token exchange request. This is a Google-specific requirement. The secret is loaded from `.env` at build time and is **not committed** to version control. For production, consider proxying the token exchange through a backend server.
+Google's token endpoint for **Web Application** client types requires `client_secret` in the token exchange request. This is a Google-specific requirement. The secret is loaded from `.env` at build time into `environment.local.ts` and is **never committed** to version control. For production, consider proxying the token exchange through a backend server.
 
 ---
 

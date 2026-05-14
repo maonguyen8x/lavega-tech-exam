@@ -116,15 +116,16 @@ Provide a **"Logout"** button that clears the session and returns to the login s
 ## Environment Configuration
 
 - All sensitive and environment-specific values are defined in **`.env`** (git-ignored).
-- The file `src/environments/environment.ts` is a **template** with empty values for secrets.
-- At build time, `scripts/generate-env.js` reads `.env` and populates `environment.ts`.
+- `environment.ts` is committed to Git with **empty values** — a safe template.
+- `environment.local.ts` is **generated** from `.env` by `scripts/generate-env.js` and is **git-ignored**.
+- Angular's `fileReplacements` in `angular.json` swaps `environment.ts` → `environment.local.ts` at build time.
 - The committed `environment.ts` must **never** contain real credentials.
-- `.env.example` provides a template with placeholder values.
 
 ```
-.env              → real credentials (git-ignored, never committed)
-.env.example      → placeholder template (committed)
-environment.ts    → populated at build time from .env (committed with empty values)
+.env                    → real credentials (git-ignored, never committed)
+.env.example            → placeholder template (committed)
+environment.ts          → committed safe template (empty values)
+environment.local.ts    → generated from .env at build time (git-ignored)
 ```
 
 ---
